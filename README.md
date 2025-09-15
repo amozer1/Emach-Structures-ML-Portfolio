@@ -1,68 +1,122 @@
-# senior-ml-portfolio
+# Emach-Structures-ML-Portfolio
 # Multi-GPU Vision-Language Model (VLM) Portfolio Project
 
+# Emach Structures ML Portfolio – Colab Edition
+
 ## Overview
-This project demonstrates the design, optimization, and deployment of a Vision-Language Model (VLM) for real-world image understanding tasks. Using the CLIP architecture (ViT + text embedding transformer), the model encodes images and text into a shared embedding space for similarity search and multimodal classification.
-
-Focus areas include **high-performance, scalable AI pipelines**, profiling, and benchmarking — critical skills for deep learning engineering and AI optimization roles.
+This portfolio demonstrates a full-stack Machine Learning workflow for **vision-language models (VLMs), high-performance computer vision (CV), and LLM deployment** using Google Colab. The project spans six phases, combining image processing, defect detection, text-image retrieval, and transformer-based LLM inference.
 
 ---
 
-## Dataset
+## Phase 1 – Setup & Dataset Preparation
+- Mounted **Google Drive** for dataset access.  
+- Organized train/validation/test datasets.  
+- Verified and sampled images using **PIL** and **matplotlib**.  
+- Ensured reproducibility for synthetic datasets and image sampling.  
 
-- **Dataset:** Berkeley DeepDrive (BDD100K)  
-- **Domain:** Autonomous driving / real-world images  
-- **Images:** 10,005 images  
-  - Train: 7,005  
-  - Validation: 1,000  
-  - Test: 2,000  
-
-**Purpose:** Showcase practical ML application on realistic, diverse datasets.
+**Key libraries:** `os`, `PIL`, `matplotlib`, `random`.
 
 ---
 
-## Model Architecture
+## Phase 2 – Vision-Language Model (CLIP)
+- Installed and loaded **OpenAI CLIP (ViT-B/32)**.  
+- Randomly sampled images and encoded them using `CLIPProcessor`.  
+- Generated **image embeddings** of shape `[batch_size, 512]`.  
+- Exported **CLIP image encoder to ONNX** for high-performance inference.  
+- Benchmarked latency across batch sizes.  
 
-- **Backbone:** CLIP ViT image encoder + text embedding transformer  
-- **Embedding Dimension:** 768  
-- **Pretrained Weights:** `openai/clip-vit-base-patch32`  
-- **Device Setup:** CPU or GPU (multi-GPU supported via DDP)  
-- **Frameworks:** PyTorch, Hugging Face Transformers, ONNX  
+**Outputs:**  
+- ONNX model saved to Google Drive.  
+- Example image embeddings: `[4, 512]`.  
 
----
-
-## Key Features
-
-### Multi-GPU Training Support
-- Distributed Data Parallel (DDP) compatible  
-- Mixed precision (FP16/BF16) for faster training  
-
-### High-Performance Inference
-- Exported model to ONNX  
-- Benchmarked latency and throughput for different batch sizes  
-
-### Industry-Relevant Profiling
-
-| Batch Size | Avg Latency (ms) |
-|------------|----------------|
-| 1          | 179.33         |
-| 2          | 324.73         |
-| 4          | 615.26         |
-| 8          | 1238.16        |
-| 16         | 2478.28        |
-
-Optional throughput calculation included for production-grade evaluation.
-
-### Deployment-Ready
-- Dockerized API for real-time inference  
-- Optional small web interface for demo
+**Key libraries:** `transformers`, `torch`, `onnx`, `onnxruntime`.
 
 ---
 
-## How to Use
+## Phase 3 – High-Performance CV
+- Setup **multi-GPU training & inference profiling** (Colab GPU / TPU).  
+- Integrated **YOLOv8** models for defect detection.  
+- Performed **dynamic batch inference**, visualization, and risk scoring.  
+- Exported YOLO models to ONNX for cross-platform deployment.  
 
-### 1️⃣ Clone Repository
-```bash
-git clone https://github.com/amozer1/senior-ml-portfolio.git
-cd senior-ml-portfolio/project1_vision_language
+**Outputs:**  
+- Latency per batch metrics.  
+- Annotated defect detection images.  
 
+**Key libraries:** `ultralytics`, `torchvision`, `onnxruntime`.
+
+---
+
+## Phase 4 – LLM / Transformer Deployment
+- Deployed **GPT-2 model** to ONNX for fast CPU/GPU inference.  
+- Verified dynamic batching support and sequence length handling.  
+- Benchmarked latency across batch sizes.  
+- Optional visualization: latency vs batch size.  
+
+**Outputs:**  
+- ONNX model for GPT-2 saved.  
+- Inference shape: `[batch_size, seq_len, vocab_size]`.  
+
+**Key libraries:** `transformers`, `torch`, `onnx`, `onnxruntime`.
+
+---
+
+## Phase 5 – Colab Integration & Retrieval
+- Integrated **image retrieval pipeline** using CLIP embeddings.  
+- Fetched sample images and computed similarity scores.  
+- Demonstrated ranking for top-4 similar images per query.  
+
+**Outputs:**  
+- Example similarity scores:
+
+- All sample images successfully processed.  
+
+**Key libraries:** `transformers`, `torch`, `PIL`, `matplotlib`.
+
+---
+
+## Phase 6 – Cross-Phase FAISS & Search
+- Computed **image embeddings** for all phases.  
+- Built a **FAISS index** for vector similarity search.  
+- Performed **text-image retrieval** with cosine similarity.  
+- Evaluated retrieval results across dataset.  
+- Generated **summary tables & reports**.  
+
+**Outputs:**  
+- FAISS index file saved.  
+- Latency and similarity tables.  
+- Retrieval demo results for sample images.  
+
+**Key libraries:** `faiss`, `torch`, `numpy`, `matplotlib`.
+
+---
+
+## Final Notes
+- All models, embeddings, and ONNX files are stored in **Google Drive** under the folder:
+- All sample images successfully processed.  
+
+**Key libraries:** `transformers`, `torch`, `PIL`, `matplotlib`.
+
+---
+
+## Phase 6 – Cross-Phase FAISS & Search
+- Computed **image embeddings** for all phases.  
+- Built a **FAISS index** for vector similarity search.  
+- Performed **text-image retrieval** with cosine similarity.  
+- Evaluated retrieval results across dataset.  
+- Generated **summary tables & reports**.  
+
+**Outputs:**  
+- FAISS index file saved.  
+- Latency and similarity tables.  
+- Retrieval demo results for sample images.  
+
+**Key libraries:** `faiss`, `torch`, `numpy`, `matplotlib`.
+
+---
+
+## Final Notes
+- All models, embeddings, and ONNX files are stored in **Google Drive** under the folder:
+
+- Colab runtime supports multi-GPU and CPU benchmarking.  
+- The pipeline is modular: you can **retrain YOLO**, **recompute embeddings**, or **update retrieval** without changing the core structure.
